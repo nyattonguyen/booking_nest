@@ -12,7 +12,7 @@ export class Room {
   inStock: number;
 
   @Column()
-  amount: number;
+  numberPeople: string;
 
   @Column()
   numberBed: number;
@@ -22,12 +22,6 @@ export class Room {
 
   @Column({ default: TYPES.NORMAL })
   type: ROLES;
-
-  @Column()
-  ward: string;
-
-  @Column()
-  apartment_number: string;
 
   @ManyToOne(() => Hotel, (hotel) => hotel.rooms)
   hotel: Hotel;

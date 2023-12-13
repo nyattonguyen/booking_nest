@@ -37,8 +37,11 @@ export class Hotel {
   @Column({ default: 9.0 })
   rate: Double;
 
+  @Column({ default: 'Chờ phê duyệt' })
+  status: string;
+
   @Column({ default: false })
-  status: boolean;
+  isActive: boolean;
 
   @OneToOne(() => Location, (location) => location.hotel)
   location: Location;

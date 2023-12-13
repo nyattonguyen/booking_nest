@@ -17,10 +17,10 @@ export class Location {
   ward: string;
 
   @Column()
-  lng: string;
+  lng: number;
 
   @Column()
-  lat: string;
+  lat: number;
 
   @Column()
   apartment_number: string;

@@ -2,13 +2,22 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateLocationDto {
   @IsNotEmpty()
-  contry: string;
+  country: string;
+
+  @IsNotEmpty()
   district: string;
+
+  @IsNotEmpty()
   ward: string;
+
+  @IsNotEmpty()
   apartment_number: string;
 
   @IsNotEmpty()
   @IsNumber()
   lng: number;
+
+  @IsNotEmpty()
+  @IsNumber()
   lat: number;
 }

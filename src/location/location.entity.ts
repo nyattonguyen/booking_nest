@@ -1,30 +1,43 @@
 import { Hotel } from 'src/hotel/hotel.entity';
 
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Location {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  contry: string;
+  @Column({ nullable: true })
+  country: string;
 
-  @Column()
+  @Column({ nullable: true })
   district: string;
 
-  @Column()
+  @Column({ nullable: true })
   ward: string;
 
-  @Column()
+  @Column({ nullable: true })
   lng: number;
 
-  @Column()
+  @Column({ nullable: true })
   lat: number;
 
-  @Column()
+  @Column({ nullable: true })
   apartment_number: string;
 
-  @OneToOne(() => Hotel, (hotel) => hotel.location)
+  @OneToOne(() => Hotel, (hotel) => hotel.location, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn()
   hotel: Hotel;
+
+  @Column()
+  hotelId: number;
 }

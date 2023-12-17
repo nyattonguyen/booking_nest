@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Hotel } from './hotel.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateHotelDto } from './dtos/updateHotel.dto';
+import { Hotel } from './hotel.entity';
 import { Location } from 'src/location/location.entity';
-import { CreateHotelWithLocationDto } from './dtos/createHotelWithLocation.dto';
+import { CreateHotelDto } from './dtos/createHotel.dto';
+import { CreateLocationDto } from './dtos/createLocation.dto';
 
 @Injectable()
 export class HotelService {
@@ -25,16 +26,15 @@ export class HotelService {
     return hotel;
   }
 
-  async createHotel(requestBody: CreateHotelWithLocationDto) {
-    const hotel = this.hotelRepo.create(requestBody.hotel);
-    const location = this.locationRepo.create(requestBody.location);
-    hotel.location = location;
-    const saveHotel = await this.hotelRepo.save(hotel);
-    return {
-      saveHotel,
-      msg: 'Created new hotel',
-      code: 201,
-    };
+  async createHotel(reqBody: CreateHotelDto, reqLocation: CreateLocationDto) {
+    const location = this.locationRepo.create(reqLocation);
+    const saveLocation = await this.locationRepo.save(location);
+
+    const hotel = this.hotelRepo.create(reqBody);
+    hotel.location = saveLocation;
+    hotel.location.hotelId = hotel.id;
+
+    return await this.hotelRepo.save(hotel);
   }
 
   async updateHotelById(requestBody: UpdateHotelDto, id: number) {

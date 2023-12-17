@@ -1,4 +1,4 @@
-export enum Types {
+export enum Type_Prod {
   VILLA = 'VILLA',
   APPARTMENT = 'APPARTMENT',
   RESORT = 'RESORT',

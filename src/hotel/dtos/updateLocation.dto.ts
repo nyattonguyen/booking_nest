@@ -1,15 +1,23 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class CreateLocationDto {
+export class UpdateLocationDto {
   @IsNotEmpty()
-  contry: string;
+  country: string;
+
+  @IsNotEmpty()
   district: string;
+
+  @IsNotEmpty()
   ward: string;
-  desc: string;
+
+  @IsNotEmpty()
   apartment_number: string;
 
   @IsNotEmpty()
   @IsNumber()
   lng: number;
+
+  @IsNotEmpty()
+  @IsNumber()
   lat: number;
 }

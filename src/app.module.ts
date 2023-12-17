@@ -5,14 +5,10 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user/user.entity';
-import { CategoryModule } from './category/category.module';
-import { Category } from './category/category.entity';
-import { HotelController } from './hotel/hotel.controller';
+import { Hotel } from './hotel/hotel.entity';
 import { HotelModule } from './hotel/hotel.module';
-import { LocationService } from './location/location.service';
-import { LocationModule } from './location/location.module';
-import { RoomController } from './room/room.controller';
-import { RoomModule } from './room/room.module';
+import { Location } from './location/location.entity';
+import { Room } from './room/room.entity';
 
 @Module({
   imports: [
@@ -25,19 +21,16 @@ import { RoomModule } from './room/room.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE_NAME'),
-        entities: [User, Category],
+        entities: [User, Hotel, Location, Room],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     UserModule,
-    CategoryModule,
     ConfigModule.forRoot(),
     HotelModule,
-    LocationModule,
-    RoomModule,
   ],
-  controllers: [AppController, HotelController, RoomController],
-  providers: [AppService, LocationService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

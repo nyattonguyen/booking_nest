@@ -4,26 +4,26 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  Double,
   OneToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
-import { Types } from './enums/type_hotel.enum';
+import { Type_Prod } from './enums/type_hotel.enum';
 @Entity()
 export class Hotel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   name_hotel: string;
 
-  @Column({ default: Types.HOTEL })
-  type: Types;
+  @Column({ default: Type_Prod.HOTEL })
+  type: Type_Prod;
 
-  @Column()
-  images: [];
+  @Column('simple-array', { nullable: true })
+  images: string[];
 
-  @Column()
+  @Column('simple-array', { nullable: true })
   extra: [
     {
       name: string;
@@ -31,11 +31,11 @@ export class Hotel {
     },
   ];
 
-  @Column()
+  @Column({ nullable: true })
   desc: string;
 
-  @Column({ default: 9.0 })
-  rate: Double;
+  @Column({ type: 'decimal', default: 9 })
+  rate: number;
 
   @Column({ default: 'Chờ phê duyệt' })
   status: string;
@@ -44,8 +44,13 @@ export class Hotel {
   isActive: boolean;
 
   @OneToOne(() => Location, (location) => location.hotel)
+  @JoinColumn()
   location: Location;
 
-  @OneToMany(() => Room, (room) => room.hotel)
+  @JoinColumn()
+  @OneToMany(() => Room, (room) => room.hotel, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   rooms: Room;
 }

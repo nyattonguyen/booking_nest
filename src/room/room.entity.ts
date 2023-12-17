@@ -5,24 +5,27 @@ import { ROLES } from 'src/user/enums/role.enum';
 
 @Entity()
 export class Room {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({})
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   inStock: number;
 
-  @Column()
+  @Column({ nullable: true })
   numberPeople: string;
 
-  @Column()
+  @Column({ nullable: true })
   numberBed: number;
 
-  @Column()
+  @Column({ nullable: true })
   price: number;
 
   @Column({ default: TYPES.NORMAL })
   type: ROLES;
 
-  @ManyToOne(() => Hotel, (hotel) => hotel.rooms)
+  @ManyToOne(() => Hotel, (hotel) => hotel.rooms, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   hotel: Hotel;
 }

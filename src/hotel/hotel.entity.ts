@@ -52,5 +52,5 @@ export class Hotel {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  rooms: Room;
+  rooms: Room[];
 }

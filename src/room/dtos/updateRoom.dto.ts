@@ -1,22 +1,20 @@
-import { IsEnum, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional } from 'class-validator';
 import { TYPES } from '../enums/type.enum';
 
-export class CreateRoomDto {
-  @IsNotEmpty()
+export class UpdateRoomDto {
+  @IsOptional()
   @IsNumber()
   inStock: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   numberPeople: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   price: number;
 
+  @IsOptional()
   @IsEnum(TYPES)
   type: TYPES;
-
-  @IsNotEmpty()
-  hotel: any;
 }

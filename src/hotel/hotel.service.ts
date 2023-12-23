@@ -54,12 +54,10 @@ export class HotelService {
       throw new NotFoundException('Hotel not found');
     }
 
-    // Delete the location if it exists
     if (hotel.location) {
       await this.locationRepo.remove(hotel.location);
     }
 
-    // Delete the hotel
     return this.hotelRepo.remove(hotel);
   }
 }

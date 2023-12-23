@@ -9,6 +9,9 @@ import { Hotel } from './hotel/hotel.entity';
 import { HotelModule } from './hotel/hotel.module';
 import { Location } from './location/location.entity';
 import { Room } from './room/room.entity';
+import { OrderService } from './order/order.service';
+import { OrderController } from './order/order.controller';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -29,8 +32,9 @@ import { Room } from './room/room.entity';
     UserModule,
     ConfigModule.forRoot(),
     HotelModule,
+    OrderModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, OrderController],
+  providers: [AppService, OrderService],
 })
 export class AppModule {}

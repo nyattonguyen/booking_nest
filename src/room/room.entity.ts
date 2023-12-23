@@ -1,7 +1,6 @@
 import { Hotel } from 'src/hotel/hotel.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TYPES } from './enums/type.enum';
-import { ROLES } from 'src/user/enums/role.enum';
 
 @Entity()
 export class Room {
@@ -21,7 +20,10 @@ export class Room {
   price: number;
 
   @Column({ default: TYPES.NORMAL })
-  type: ROLES;
+  type: TYPES;
+
+  @Column({ default: false })
+  isClosed: boolean;
 
   @ManyToOne(() => Hotel, (hotel) => hotel.rooms, {
     onDelete: 'CASCADE',

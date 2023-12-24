@@ -24,5 +24,5 @@ export class OrderItem {
 
   @ManyToOne(() => Room)
   @JoinColumn()
-  room: Room;
+  room: number;
 }

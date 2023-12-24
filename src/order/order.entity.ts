@@ -6,14 +6,20 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { OrderItem } from './orderItem.entity';
+import { Hotel } from 'src/hotel/hotel.entity';
 @Entity()
-export class Hotel {
+export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.room, { cascade: true })
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.room, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   orderItems: OrderItem[];
 
   @Column()
@@ -28,13 +34,27 @@ export class Hotel {
   @Column({ default: '' })
   note: string;
 
+  @OneToOne(() => Hotel)
+  @JoinColumn()
+  hotel: number;
+
   @OneToOne(() => User)
   @JoinColumn()
-  user: User;
+  user: number;
 
   @Column('date')
   dateCheckin: string;
 
   @Column('date')
   dateCheckout: string;
+
+  @CreateDateColumn({ type: 'timestamp', default: new Date(Date.now()) })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
+  updatedAt: Date;
 }
